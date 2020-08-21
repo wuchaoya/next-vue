@@ -1,12 +1,12 @@
 import { createApp } from 'vue';
 import App from './App';
 import router from './router';
-import { stateSymbol, createState } from './store';
 import './index.css';
+import InstantiationStore,{stateSymbol} from './store';
 
-const app = createApp(App);
+export const app = createApp(App);
 
-app.provide(stateSymbol, createState());
+app.provide(stateSymbol, InstantiationStore);
 
 app.use(router)
 

@@ -1,5 +1,5 @@
 import { defineComponent } from 'vue';
-import { RouterView, RouterLink } from 'vue-router'
+import { RouterView, RouterLink } from "vue-router"
 interface APPProps {
 
 }

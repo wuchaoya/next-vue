@@ -1,33 +1,43 @@
-import { reactive, inject,readonly } from 'vue';
+import {action, observable, computed} from 'mobx';
+import {inject} from 'vue';
 
-export interface StateProps {
-  account: string,
-  password: string,
+export interface PropertyPropsType {
+  name: string;
+  age: number;
 }
 
-export interface StoreProps {
-  setAccount: (value: string) => void,
-  setPassword: (value: string) => void,
-  readonly state: StateProps
+export interface StorePropsType extends PropertyPropsType {
+  falseAge: () => number;
+  setProperty: (property: PropertyPropsType) => void
 }
+
+export class store <Props>{
+  
+  constructor(property: PropertyPropsType) {
+    this.setProperty(property)
+  }
+  
+  @observable name
+  
+  @observable age;
+  
+  @computed get falseAge() {
+    return this.age += 1
+  }
+  
+  @action.bound setProperty(property) {
+    this.name = property.name;
+    this.age = property.age;
+  }
+  
+}
+
+
+const InstantiationStore = new store<StorePropsType>({name: 'jm',age: 18})
+
+export default InstantiationStore;
 
 export const stateSymbol = Symbol('state');
 
-export const createState = () => {
-  
-  const state = reactive({
-    account: '',
-    password: '',
-  });
-  
-  const setAccount = (value: string) => state.account = value;
-  
-  const setPassword = (value: string) => state.password = value;
-  
-  return { setAccount, setPassword, state: readonly(state) };
-  
-}
-
-export const useState: () =>StoreProps  = () => inject(stateSymbol);
-
-
+// @ts-ignore
+export const useState: () => StorePropsType = () => inject(stateSymbol);
