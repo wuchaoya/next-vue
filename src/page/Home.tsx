@@ -1,41 +1,22 @@
 import {defineComponent} from 'vue';
-import useLockBodyScroll from '../hooks/useLockBodyScroll';
+import useState from '../hooks/useState';
 
 const TestUseEventListener = defineComponent({
   
   setup() {
   
-    const styles = {
-      position: 'fixed',
-      height: '10vh',
-      width: '10vw',
-      background: '#000',
-      color: '#fff',
-      overflow: 'scroll'
+  
+    const [state, setState] = useState<number>(0);
+  
+    setState(2)
+    state.value = 10
+    console.log(state.value)
+    console.log(Object.isFrozen(state));
+    console.log(Object.isSealed(state));
+    return {
+      state
     }
   
-    useLockBodyScroll()
-    
-    return () => (
-      <div style={{height: '100vh', width: '100%', backgroundColor: 'red',position: 'fixed',}}>
-        <div style={styles}>
-    
-          <p>测试</p>
-          <p>测试</p>
-          <p>测试</p>
-          <p>测试</p>
-          <p>测试</p>
-          <p>测试</p>
-          <p>测试</p>
-          <p>测试</p>
-          <p>测试</p>
-          <p>测试</p>
-          <p>测试</p>
-  
-        </div>
-      </div>
-    )
-   
   }
 })
 

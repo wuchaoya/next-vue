@@ -6,14 +6,27 @@ const useState: UseStateProps = <T>(v: T) => {
   
   const count:  Ref<UnwrapRef<T>> = ref(v);
   
+  const setValue = function (value){
+    count.value = value;
+  }
+  
   const state = computed({
     get: () => count.value,
-    set: (value: UnwrapRef<T>) => count.value = value
+    set: setValue
   })
   
-  const setValue = (value) =>  state.value = value;
+  const validator = {
+    get: function(obj, prop) {
+      return prop in obj ? obj[prop] : undefined;
+    },
+    set: function() {
+      return true
+    }
+  };
   
-  return [state, setValue]
+  const externalState = new Proxy(Object.freeze(state),validator)
+  
+  return [externalState, setValue]
   
 }
 
