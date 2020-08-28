@@ -4,15 +4,21 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "test": "jest",
     "commit": "git add . && yarn git-cz"
   },
   "dependencies": {
     "@vue/babel-helper-vue-jsx-merge-props": "^1.0.0",
     "@vue/babel-preset-jsx": "^1.1.2",
+    "@vue/test-utils": "^1.0.4",
+    "babel-jest": "^26.3.0",
     "git-cz": "^4.7.0",
+    "jest": "^26.4.2",
     "mobx": "^5.15.6",
+    "typescript": "^4.0.2",
     "vue": "^3.0.0-rc.1",
     "vue-hooks": "^0.3.2",
+    "vue-jest": "^3.0.6",
     "vue-router": "4.0.0-beta.6"
   },
   "devDependencies": {
@@ -21,5 +27,16 @@
     "less": "^3.12.2",
     "less-loader": "^6.2.0",
     "vite": "^1.0.0-rc.1"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "tsx",
+      "json",
+      "ts"
+    ],
+    "transform": {
+      ".*\\.(tsx)$": "vue-jest",
+      "^.+\\.ts$": "<rootDir>/node_modules/babel-jest"
+    }
   }
 }

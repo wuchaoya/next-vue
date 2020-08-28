@@ -4,6 +4,7 @@ import router from './router';
 import './index.css';
 import InstantiationStore,{stateSymbol} from './store';
 
+
 export const app = createApp(App);
 
 app.provide(stateSymbol, InstantiationStore);
